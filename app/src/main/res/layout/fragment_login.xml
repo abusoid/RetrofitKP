@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.loginPage.LoginFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:layout_gravity="start"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="60dp"
+        android:text="Фильмы" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:text="x" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editTextTextEmailAddress"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:background="@drawable/edit_text_border"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/editTextTextPassword"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword" />
+
+        <Switch
+            android:id="@+id/rememberMe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Запомнить меня" />
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Войти" />
+
+        <Button
+            android:id="@+id/registration"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Регистрация" />
+
+    </LinearLayout>
+
+</FrameLayout>

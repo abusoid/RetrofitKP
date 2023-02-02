@@ -1,5 +1,7 @@
-package com.example.retrofitkp
+package com.example.retrofitkp.data.repository
 
+import com.example.retrofitkp.model.movie.Movie
+import com.example.retrofitkp.data.api.Retrofit
 import retrofit2.Response
 
 class Repository {

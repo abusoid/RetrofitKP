@@ -1,6 +1,6 @@
-package com.example.retrofitkp
+package com.example.retrofitkp.model.movie
 
-data class Movie (
+data class MovieItem (
     val kinopoiskId: Int,
     val imdbId: String,
     val nameRu: String,

@@ -1,6 +1,8 @@
 package com.example.retrofitkp
 
 import androidx.lifecycle.MutableLiveData
+import com.example.retrofitkp.data.repository.Repository
+import com.example.retrofitkp.model.movie.Movie
 import kotlinx.coroutines.*
 
 class ViewModel():androidx.lifecycle.ViewModel() {
@@ -12,14 +14,14 @@ class ViewModel():androidx.lifecycle.ViewModel() {
 
     fun getMoviesByName() {
         job = CoroutineScope(Dispatchers.IO).launch {
-            val response = Repository.getMoviesByName("Tenet")
+            //val response = Repository.getMoviesByName("Tenet")
             withContext(Dispatchers.Main) {
-                if (response.isSuccessful) {
+               /* if (response.isSuccessful) {
                     movieList.postValue(response.body())
                     loading.value = false
                 } else {
                     onError("Error : ${response.message()} ")
-                }
+                }*/
             }
         }
 
