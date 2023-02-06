@@ -13,8 +13,8 @@ import com.example.retrofitkp.model.movie.MovieItem
 import kotlinx.android.synthetic.main.item_movie_layout.view.*
 
 
-class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
-    var listMovies = emptyList<MovieItem>()
+class MoviesAdapter(val adapterOnClick: (MovieItem) -> Unit) : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
+    var movieList = emptyList<MovieItem>()
 
     class MoviesViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
@@ -27,16 +27,16 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
         //var preview: Drawable = getUrlDrawable(listMovies[position].posterUrlPreview)
 
         //holder.itemView.moviePreview.setImageDrawable(listMovies[position].posterUrlPreview)
-        holder.itemView.movieName.text = listMovies[position].nameRu
+        holder.itemView.movieName.text = movieList[position].nameRu
     }
 
     override fun getItemCount(): Int {
-        return listMovies.size
+        return movieList.size
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun setList(list: List<MovieItem>) {
-        listMovies = list
+        movieList = list
         notifyDataSetChanged()
     }
 

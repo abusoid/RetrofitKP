@@ -5,8 +5,10 @@ import com.example.retrofitkp.data.api.Retrofit
 import retrofit2.Response
 
 class Repository {
-    suspend fun getMoviesByName(name:String): Response<List<Movie>>{
-        return Retrofit.api.getMoviesByName(name)
+
+
+    suspend fun getMoviesByFilter(): Response<Movie>{
+        return Retrofit.api.getMoviesByFilter()
     }
 
 }

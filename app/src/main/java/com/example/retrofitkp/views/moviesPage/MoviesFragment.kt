@@ -5,16 +5,41 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.retrofitkp.R
+import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.retrofitkp.ViewModel
+import com.example.retrofitkp.databinding.FragmentMoviesBinding
+import com.example.retrofitkp.model.movie.MovieItem
+import com.example.retrofitkp.views.detailMoviePage.DetailMovieFragment
 
 class MoviesFragment : Fragment() {
+
+    private val ViewModel by activityViewModels<ViewModel>()
+    private lateinit var binding: FragmentMoviesBinding
+    private lateinit var adapter: MoviesAdapter
+    //private lateinit var rv: RecyclerView
+    private var page: Int = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_movies, container, false)
+        binding = FragmentMoviesBinding.inflate(inflater)
+        adapter = MoviesAdapter { item -> doClick(item) }
+        with(binding) {
+            moviesRV.layoutManager = GridLayoutManager(requireContext(), 2)
+            moviesRV.adapter = adapter
+            println("Перед вызовом адаптера")
+            ViewModel.movieList.observe(viewLifecycleOwner) { list ->
+                list.body()?.let {
+                    println("list body не пустой")
+                    adapter.setList(it)
+                }
+            }
+            //rv = moviesRV
+        }
+        return binding.root
     }
 
     companion object {
@@ -22,5 +47,26 @@ class MoviesFragment : Fragment() {
         fun newInstance() =
             MoviesFragment().apply {
             }
+    }
+
+    fun doClick(movie: MovieItem) {
+        println(movie.nameRu)
+        ViewModel.setFilms(movie)
+        ViewModel.goToNextFragment(this, DetailMovieFragment.newInstance())
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setFilms(page)
+        binding.page.text = page.toString()
+    }
+
+    fun setFilms(page: Int) {
+        ViewModel.getFilms(page)
+        ViewModel.movieList.observe(viewLifecycleOwner) { list ->
+            list.body()?.let {
+                adapter.setList(it)
+            }
+        }
     }
 }

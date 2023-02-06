@@ -12,7 +12,7 @@ interface RetrofitService {
                         "Content-Type: application/json"]
         )
         @GET("films?order=RATING&type=ALL&ratingFrom=8&ratingTo=10&yearFrom=1000&yearTo=3000&page=1")
-        suspend fun getMoviesByName(name:String) : Response<List<Movie>>
+        suspend fun getMoviesByFilter() : Response<Movie>
 
         @GET("error")
         suspend fun getError():Response<Movie>
