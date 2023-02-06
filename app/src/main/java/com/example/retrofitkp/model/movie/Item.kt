@@ -1,6 +1,6 @@
 package com.example.retrofitkp.model.movie
 
-data class MovieItem (
+data class Item(
     val countries: List<Country>,
     val genres: List<Genre>,
     val imdbId: String,
@@ -14,4 +14,4 @@ data class MovieItem (
     val ratingKinopoisk: Double,
     val type: String,
     val year: Int
-        )
+)
