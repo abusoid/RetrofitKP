@@ -14,9 +14,8 @@ class ViewModel():androidx.lifecycle.ViewModel() {
     val movieList : MutableLiveData<Response<Movie>> = MutableLiveData()
     var job: Job? = null
     var repository= Repository()
-
-    val movie: MutableLiveData<MovieItem> = MutableLiveData()
     val loading = MutableLiveData<Boolean>()
+    val movie: MutableLiveData<MovieItem> = MutableLiveData()
 
     fun getMoviesByName() {
         job = CoroutineScope(Dispatchers.IO).launch {
@@ -60,14 +59,13 @@ class ViewModel():androidx.lifecycle.ViewModel() {
         }
     }
     fun setFilms(currentFilm: MovieItem) {
-        println(currentFilm.nameRu)
         movie.value = currentFilm
     }
     fun getFilms(page:Int=1) {
         println("start getFilms")
         viewModelScope.launch {
             movieList.value = repository.getMoviesByFilter()
-            println(repository.getMoviesByFilter())
         }
     }
+
 }

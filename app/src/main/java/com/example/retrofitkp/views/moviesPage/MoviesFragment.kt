@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofitkp.ViewModel
 import com.example.retrofitkp.databinding.FragmentMoviesBinding
 import com.example.retrofitkp.model.movie.MovieItem
@@ -29,15 +28,9 @@ class MoviesFragment : Fragment() {
         adapter = MoviesAdapter { item -> doClick(item) }
         with(binding) {
             moviesRV.layoutManager = GridLayoutManager(requireContext(), 2)
+            println(adapter)
             moviesRV.adapter = adapter
-            println("Перед вызовом адаптера")
-            ViewModel.movieList.observe(viewLifecycleOwner) { list ->
-                list.body()?.let {
-                    println("list body не пустой")
-                    adapter.setList(it)
-                }
-            }
-            //rv = moviesRV
+
         }
         return binding.root
     }
@@ -65,7 +58,7 @@ class MoviesFragment : Fragment() {
         ViewModel.getFilms(page)
         ViewModel.movieList.observe(viewLifecycleOwner) { list ->
             list.body()?.let {
-                adapter.setList(it)
+                adapter.setList(it.movies)
             }
         }
     }

@@ -9,7 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofitkp.R
+import com.example.retrofitkp.model.movie.Movie
 import com.example.retrofitkp.model.movie.MovieItem
+import kotlinx.android.synthetic.main.fragment_movies.view.*
 import kotlinx.android.synthetic.main.item_movie_layout.view.*
 
 
@@ -24,10 +26,8 @@ class MoviesAdapter(val adapterOnClick: (MovieItem) -> Unit) : RecyclerView.Adap
     }
 
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
-        //var preview: Drawable = getUrlDrawable(listMovies[position].posterUrlPreview)
-
-        //holder.itemView.moviePreview.setImageDrawable(listMovies[position].posterUrlPreview)
-        holder.itemView.movieName.text = movieList[position].nameRu
+        val currentItem = movieList[position]
+        holder.itemView.movieName.text = currentItem.nameRu
     }
 
     override fun getItemCount(): Int {

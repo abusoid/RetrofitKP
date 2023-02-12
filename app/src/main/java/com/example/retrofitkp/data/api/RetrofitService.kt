@@ -1,6 +1,7 @@
 package com.example.retrofitkp.data.api
 
 import com.example.retrofitkp.model.movie.Movie
+import com.example.retrofitkp.model.movie.MovieItem
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers

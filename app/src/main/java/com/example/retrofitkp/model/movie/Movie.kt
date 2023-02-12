@@ -1,4 +1,6 @@
 package com.example.retrofitkp.model.movie
 
-class Movie : ArrayList<MovieItem>() {
-}
+data class Movie(
+    val movies: List<MovieItem>,
+    val pagesCount: Int
+)
