@@ -5,35 +5,39 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.retrofitkp.ViewModel
 import com.example.retrofitkp.databinding.FragmentMoviesBinding
 import com.example.retrofitkp.model.movie.MovieItem
 import com.example.retrofitkp.views.detailMoviePage.DetailMovieFragment
+import com.example.retrofitkp.views.loginPage.LoginFragment
 
 class MoviesFragment : Fragment() {
 
     private val ViewModel by activityViewModels<ViewModel>()
     private lateinit var binding: FragmentMoviesBinding
     private lateinit var adapter: MoviesAdapter
-    //private lateinit var rv: RecyclerView
-    private var page: Int = 1
+    private var pageCount: Int = 1
+    private var methodName: String = "getMovies"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMoviesBinding.inflate(inflater)
+        binding.page.text = pageCount.toString()
         adapter = MoviesAdapter { item -> doClick(item) }
         with(binding) {
             moviesRV.layoutManager = GridLayoutManager(requireContext(), 2)
-            println(adapter)
             moviesRV.adapter = adapter
-
         }
+
         return binding.root
     }
+
 
     companion object {
 
@@ -42,24 +46,62 @@ class MoviesFragment : Fragment() {
             }
     }
 
-    fun doClick(movie: MovieItem) {
-        println(movie.nameRu)
+    private fun doClick(movie: MovieItem) {
         ViewModel.setFilms(movie)
         ViewModel.goToNextFragment(this, DetailMovieFragment.newInstance())
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setFilms(page)
-        binding.page.text = page.toString()
+        setFilms(pageCount)
+        binding.page.text = pageCount.toString()
+        binding.page.addTextChangedListener {
+            binding.previousPage.isVisible = pageCount != 1
+            binding.nextPage.isVisible = pageCount <= 20
+        }
+
+        //Кнопка "Следующая"
+        binding.nextPage.isVisible = pageCount <= 20
+        binding.nextPage.setOnClickListener {
+            println("Итерация страницы")
+            pageCount++
+            binding.page.text = pageCount.toString()
+            println("перед вызовом SetList")
+            setFilms(pageCount)
+        }
+        //Кнопка "Предыдущая"
+        binding.previousPage.isVisible = pageCount != 1
+        binding.previousPage.setOnClickListener {
+            pageCount--
+            binding.page.text = pageCount.toString()
+            setFilms(pageCount)
+        }
+        //Кнопка назад
+        binding.backButton.setOnClickListener{
+            ViewModel.goToNextFragment(this, LoginFragment.newInstance())
+        }
+        //Кнопка поиска
+        binding.searchButton.setOnClickListener{
+            methodName = "getMoviesByKeyword"
+            setFilms(pageCount)
+        }
     }
 
-    fun setFilms(page: Int) {
-        ViewModel.getFilms(page)
+    private fun setFilms(page: Int) {
+        when(methodName){
+            "getMovies" -> ViewModel.getMovies(page)
+            "getMoviesByKeyword" -> ViewModel.getMoviesByKeyword(page, binding.searchEdit.text.toString())
+        }
+
         ViewModel.movieList.observe(viewLifecycleOwner) { list ->
             list.body()?.let {
-                adapter.setList(it.movies)
+                println("Вызов SetList")
+                adapter.setList(it.films)
+                binding.moviesRV.adapter = adapter
             }
         }
     }
+
 }
+

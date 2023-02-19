@@ -1,17 +1,15 @@
 package com.example.retrofitkp.views.moviesPage
 
 import android.annotation.SuppressLint
-import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
+import android.icu.number.NumberFormatter.with
+import android.icu.number.NumberRangeFormatter.with
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofitkp.R
-import com.example.retrofitkp.model.movie.Movie
 import com.example.retrofitkp.model.movie.MovieItem
-import kotlinx.android.synthetic.main.fragment_movies.view.*
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_movie_layout.view.*
 
 
@@ -28,6 +26,8 @@ class MoviesAdapter(val adapterOnClick: (MovieItem) -> Unit) : RecyclerView.Adap
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
         val currentItem = movieList[position]
         holder.itemView.movieName.text = currentItem.nameRu
+        Picasso.get().load(currentItem.posterUrlPreview).into(holder.itemView.moviePreview)
+        holder.itemView.moviePreview
     }
 
     override fun getItemCount(): Int {
