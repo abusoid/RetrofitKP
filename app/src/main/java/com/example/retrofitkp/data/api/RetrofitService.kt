@@ -13,7 +13,7 @@ interface RetrofitService {
                 value = ["X-API-KEY: d07a3bc9-4cd1-42b8-893c-062ca1194ab1",
                         "Content-Type: application/json"]
         )
-        @GET("top")
+        @GET("films/top")
         suspend fun getMovies(
                 @Query("page") page: Int,
                 @Query("type") type: String = "TOP_100_POPULAR_FILMS"
@@ -22,7 +22,7 @@ interface RetrofitService {
                 value = ["X-API-KEY: d07a3bc9-4cd1-42b8-893c-062ca1194ab1",
                         "Content-Type: application/json"]
         )
-        @GET("search-by-keyword")
+        @GET("films")
         suspend fun getMoviesByKeyword(
                 @Query("page") page: Int,
                 @Query("keyword") keyword: String

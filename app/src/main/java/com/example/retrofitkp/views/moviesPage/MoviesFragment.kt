@@ -27,6 +27,7 @@ class MoviesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        println("onCreateView MoviesFragment")
         binding = FragmentMoviesBinding.inflate(inflater)
         binding.page.text = pageCount.toString()
         adapter = MoviesAdapter { item -> doClick(item) }
@@ -47,6 +48,7 @@ class MoviesFragment : Fragment() {
     }
 
     private fun doClick(movie: MovieItem) {
+        println("doClick MoviesFragment")
         ViewModel.setFilms(movie)
         ViewModel.goToNextFragment(this, DetailMovieFragment.newInstance())
 
@@ -54,6 +56,7 @@ class MoviesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        println("OnViewCreated MoviesFragment")
         setFilms(pageCount)
         binding.page.text = pageCount.toString()
         binding.page.addTextChangedListener {
@@ -83,12 +86,14 @@ class MoviesFragment : Fragment() {
         }
         //Кнопка поиска
         binding.searchButton.setOnClickListener{
+            pageCount = 1
             methodName = "getMoviesByKeyword"
             setFilms(pageCount)
         }
     }
 
     private fun setFilms(page: Int) {
+        println("setFilms MoviesFragment")
         when(methodName){
             "getMovies" -> ViewModel.getMovies(page)
             "getMoviesByKeyword" -> ViewModel.getMoviesByKeyword(page, binding.searchEdit.text.toString())

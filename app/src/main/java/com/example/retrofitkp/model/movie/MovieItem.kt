@@ -12,5 +12,6 @@ data class MovieItem (
     val rating: String,
     val ratingChange: Any,
     val ratingVoteCount: Int,
-    val year: String
+    val year: String,
+    val description: String
         )
