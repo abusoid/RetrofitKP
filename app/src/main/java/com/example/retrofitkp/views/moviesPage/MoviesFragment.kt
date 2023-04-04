@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.retrofitkp.App.Companion.dbFlg
 import com.example.retrofitkp.ViewModel
 import com.example.retrofitkp.databinding.FragmentMoviesBinding
 import com.example.retrofitkp.model.movie.MovieItem
@@ -98,15 +99,21 @@ class MoviesFragment : Fragment() {
             "getMovies" -> ViewModel.getMovies(page)
             "getMoviesByKeyword" -> ViewModel.getMoviesByKeyword(page, binding.searchEdit.text.toString())
         }
-
-        ViewModel.movieList.observe(viewLifecycleOwner) { list ->
-            list.body()?.let {
-                println("Вызов SetList")
-                adapter.setList(it.films)
-                binding.moviesRV.adapter = adapter
+        if(!dbFlg) {
+            ViewModel.movieList.observe(viewLifecycleOwner) { list ->
+                list.body()?.let {
+                    println("Вызов SetList")
+                    adapter.setList(it.films)
+                    binding.moviesRV.adapter = adapter
+                }
             }
+        } else {
+            ViewModel.movieDB.observe(viewLifecycleOwner) {
+                    println("Вызов SetList")
+                    adapter.setList(it.films)
+                    binding.moviesRV.adapter = adapter
+                }
         }
     }
-
 }
 

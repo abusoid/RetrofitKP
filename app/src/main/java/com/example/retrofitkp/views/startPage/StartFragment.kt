@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.retrofitkp.databinding.FragmentStartBinding
 import com.example.retrofitkp.views.loginPage.LoginFragment
+import com.example.retrofitkp.views.registration.RegistrationFragment
 import kotlinx.android.synthetic.main.fragment_root.view.*
 import com.example.retrofitkp.ViewModel as ViewModel
 
@@ -35,6 +36,9 @@ class StartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.login.setOnClickListener(){
             ViewModel.goToNextFragment(this, LoginFragment.newInstance())
+        }
+        binding.registration.setOnClickListener(){
+            ViewModel.goToNextFragment(this, RegistrationFragment.newInstance())
         }
 
 
